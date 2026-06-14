@@ -1,5 +1,5 @@
 import streamlit as st
-from features import new_document
+from features_helper import new_document
 
 def render_sidebar():
     st.sidebar.markdown("### ✨ Create Document")

@@ -1,6 +1,6 @@
 import streamlit as st
 import os
-from features import init_session_state, rebuild_document, render_preview
+from features_helper import init_session_state, rebuild_document, render_preview
 from feature_modules.feature01_create import render_sidebar as render_f1
 from feature_modules.feature02_headings import render_sidebar as render_f2
 from feature_modules.feature03_paragraphs import render_sidebar as render_f3
@@ -11,9 +11,10 @@ from feature_modules.feature07_bullets import render_sidebar as render_f7
 from feature_modules.feature08_numbered import render_sidebar as render_f8
 from feature_modules.feature09_tables import render_sidebar as render_f9
 from feature_modules.feature10_save import render_sidebar as render_f10
+from feature_modules.feature11_image import render_sidebar as render_f11
 
 st.set_page_config(
-    page_title="Python-docx Demo | 10 Features", 
+    page_title="Python-docx Demo | 11 Features", 
     layout="wide", 
     page_icon="📄"
 )
@@ -41,7 +42,7 @@ st.markdown("---")
 # ============================================================
 # SIDEBAR: 10 FEATURES
 # ============================================================
-st.sidebar.markdown("## 🎯 10 Features")
+st.sidebar.markdown("## 🎯 11 Features")
 st.sidebar.markdown("---")
 
 # render each feature's sidebar block
@@ -54,4 +55,5 @@ render_f6()
 render_f7()
 render_f8()
 render_f9()
+render_f11()
 render_f10()

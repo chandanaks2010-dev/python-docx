@@ -93,7 +93,11 @@ def rebuild_document():
                     table.cell(ri, cj).text = str(cell_content)
         elif block["type"] == "image":
             try:
-                st.session_state.doc.add_picture(block["content"], width=Inches(3))
+                width_in = block.get("width_in", 3)
+                if width_in:
+                    st.session_state.doc.add_picture(block["content"], width=Inches(width_in))
+                else:
+                    st.session_state.doc.add_picture(block["content"])
             except Exception:
                 pass
         elif block["type"] == "page_break":

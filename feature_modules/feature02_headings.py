@@ -1,5 +1,5 @@
 import streamlit as st
-from features import add_block, rebuild_document
+from features_helper import add_block, rebuild_document
 
 def render_sidebar():
     st.sidebar.markdown("### 📑 Add Headings")
