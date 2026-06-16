@@ -2,7 +2,7 @@ import streamlit as st
 from features_helper import add_block, rebuild_document
 
 def render_sidebar():
-    st.sidebar.markdown("### 📝 Add Paragraphs")
+    st.sidebar.markdown("#### 📝 Add Paragraphs")
     p_text = st.sidebar.text_area("Paragraph text", placeholder="Enter text...", height=80, key="p_input")
     if st.sidebar.button("Add Paragraph", key="f3", use_container_width=True):
         if p_text:
@@ -13,5 +13,3 @@ def render_sidebar():
             rebuild_document()
             st.success("Paragraph added!")
             st.rerun()
-    st.sidebar.markdown('</div>', unsafe_allow_html=True)
-    st.sidebar.markdown("---")
