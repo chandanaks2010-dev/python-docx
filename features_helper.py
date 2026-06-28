@@ -68,6 +68,79 @@ def new_document():
     st.session_state.doc = Document()
     st.session_state.content_blocks = []
 
+#open document and display content in the preview area
+def open_document(uploaded_file):
+
+    doc = Document(uploaded_file)
+
+    st.session_state.doc = doc
+    st.session_state.content_blocks.clear()
+
+    # ---------- Paragraphs & Headings ----------
+    for para in doc.paragraphs:
+
+        if not para.text.strip():
+            continue
+
+        block = {
+            "content": para.text,
+            "bold": False,
+            "italic": False,
+            "underline": False,
+            "font_size": 12,
+            "font_color": "#000000",
+            "alignment": next(
+                (k for k, v in ALIGN_MAP.items() if v == para.alignment),
+                "Left"
+            )
+        }
+
+        if para.runs:
+
+            run = para.runs[0]
+
+            block["bold"] = bool(run.bold)
+            block["italic"] = bool(run.italic)
+            block["underline"] = bool(run.underline)
+
+            if run.font.size:
+                block["font_size"] = run.font.size.pt
+
+            try:
+                if run.font.color.rgb:
+                    block["font_color"] = "#" + str(run.font.color.rgb)
+            except Exception:
+                pass
+
+        if para.style.name.startswith("Heading"):
+
+            try:
+                level = int(para.style.name[-1])
+            except:
+                level = 1
+
+            block["type"] = "heading"
+            block["level"] = level
+
+        else:
+            block["type"] = "paragraph"
+
+        st.session_state.content_blocks.append(block)
+
+    # ---------- Tables ----------
+    for table in doc.tables:
+
+        data = []
+
+        for row in table.rows:
+            data.append([cell.text for cell in row.cells])
+
+        st.session_state.content_blocks.append({
+            "type": "table",
+            "data": data,
+            "rows": len(data),
+            "cols": len(data[0]) if data else 0
+        })
 
 def add_block(block_type, content, **kwargs):
     """Add content block"""

@@ -2,6 +2,7 @@ import streamlit as st
 import os
 from features_helper import init_session_state, rebuild_document, render_preview
 from feature_modules.feature01_create      import render_sidebar as render_create
+from feature_modules.feature_open_doc      import render_sidebar as render_open_doc
 from feature_modules.feature02_headings    import render_sidebar as render_headings
 from feature_modules.feature03_paragraphs  import render_sidebar as render_paragraphs
 from feature_modules.feature_formatting    import render_sidebar as render_formatting
@@ -43,6 +44,7 @@ st.sidebar.markdown("## 📄 Document Builder")
 st.sidebar.markdown("---")
 
 render_create()
+render_open_doc()
 
 # Formatting — applies to all text content below
 render_formatting()
