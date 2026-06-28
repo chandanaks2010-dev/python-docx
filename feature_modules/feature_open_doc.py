@@ -1,5 +1,5 @@
 import streamlit as st
-from features_helper import open_document, rebuild_document
+from features_helper import open_document
 
 def render_sidebar():
 
@@ -12,7 +12,9 @@ def render_sidebar():
     )
 
     if uploaded_file is not None:
-        open_document(uploaded_file)        
-        rebuild_document()
-        st.success("Document opened successfully!")
-        st.rerun()
+
+        if st.sidebar.button("📂 Load Document", key="load_doc"):
+
+            open_document(uploaded_file)
+
+            st.rerun()

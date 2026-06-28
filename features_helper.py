@@ -52,6 +52,8 @@ def init_session_state():
         st.session_state.underline = False
         st.session_state.font_size = 12
         st.session_state.font_color = "#000000"
+    if "doc_loaded" not in st.session_state:
+        st.session_state.doc_loaded = False
 
 
 def save_document():
@@ -64,9 +66,12 @@ def save_document():
 
 
 def new_document():
-    """Create a fresh Document and clear blocks"""
     st.session_state.doc = Document()
     st.session_state.content_blocks = []
+    st.session_state.doc_loaded = False
+    if "upload_doc" in st.session_state:
+        del st.session_state["upload_doc"]
+    st.rerun()
 
 #open document and display content in the preview area
 def open_document(uploaded_file):
@@ -141,6 +146,7 @@ def open_document(uploaded_file):
             "rows": len(data),
             "cols": len(data[0]) if data else 0
         })
+
 
 def add_block(block_type, content, **kwargs):
     """Add content block"""
